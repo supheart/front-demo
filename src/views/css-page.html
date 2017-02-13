@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css-page</title>
+    <style>
+        .block-3d{perspective: 800px; perspective-origin: 50% 50%; }
+        .page-group{width: 400px; height: 400px; overflow: hidden; margin: 10px auto; position: relative; transform-style: preserve-3d;}
+        .page{width: 400px; height: 400px; line-height: 400px; text-align: center; background-color: #000; color: #fff; font-size: 360px; font-weight: bold; position: absolute;
+            transform-origin: bottom; transition: transform 1s linear;transform: rotateX(-90deg);
+        }
+        .page:first-child{transform: rotateX(0deg);}
+        .operator{width: 400px; text-align: center; margin: 0 auto;}
+    </style>
+    <script>
+        var currentIndex = 1;
+
+        function next(){
+            if(currentIndex == 9){
+                return;
+            }
+            var currentPage = document.getElementsByClassName("page")[currentIndex -1];
+            currentPage.style.transform = "rotateX(90deg)";
+            var nextPage = document.getElementsByClassName("page")[currentIndex];
+            nextPage.style.transform = "rotateX(0deg)";
+            currentIndex ++;
+        }
+
+        function prev(){
+            if(currentIndex == 1){
+                return;
+            }
+            var currentPage = document.getElementsByClassName("page")[currentIndex -1];
+            currentPage.style.transform = "rotateX(-90deg)";
+            var lastPage = document.getElementsByClassName("page")[currentIndex - 2];
+            lastPage.style.transform = "rotateX(0deg)";
+            currentIndex --;
+        }
+
+        window.onload = function(){
+            console.log("start log...");
+        }
+    </script>
+</head>
+<body>
+    <div class="block-3d">
+        <div class="page-group">
+            <div class="page">1</div>
+            <div class="page">2</div>
+            <div class="page">3</div>
+            <div class="page">4</div>
+            <div class="page">5</div>
+            <div class="page">6</div>
+            <div class="page">7</div>
+            <div class="page">8</div>
+            <div class="page">9</div>
+        </div>
+    </div>
+    <div class="operator">
+        <button onclick="next()">next</button>
+        <button onclick="prev()">previous</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+body {
+  background-color: #ddd; }
+
+.kuang {
+  text-align: center;
+  margin-top: 200px; }
+
+#mess {
+  text-align: center; }
+
+.value {
+  width: 200px;
+  height: 200px;
+  border: 1px solid;
+  text-align: center;
+  line-height: 200px;
+  display: inline-block; }

@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>步行路径规划</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main.css?v=1.0"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=834573857ce775bbe6a9c6befe5e810c"></script>
+    <style type="text/css">
+        #mapContainer{
+            width: 800px; height: 500px;
+            margin: 50px auto;
+        }  
+        #mapImg{
+            width: 800px;
+            height: 300px;
+            margin: 600px auto;
+        }
+         #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+        }
+    </style>
+</head>
+<body>
+<div id="mapContainer"></div>
+<div id="panel"></div>
+<div id="mapImg"><img src="<%= src %>" alt="aa"></div>
+<script type="text/javascript">
+    //基本地图加载
+    // var map = new AMap.Map("mapContainer", {
+    //     resizeEnable: true,
+    //     center: [116.397428, 39.90923],//地图中心点
+    //     zoom: 13 //地图显示的缩放级别
+    // });
+    // map.setMapStyle("normal");
+    // function refresh(e) {
+    //     map.setMapStyle("fresh");
+    // }
+
+    var map = new AMap.Map('mapContainer', {
+        resizeEnable: true,
+        // center: [116.397428, 39.90923],
+        center: [113.340233, 23.124458],
+        zoom: 15
+    });
+    var lineArr = [
+        [113.340706380209,23.123248969185],
+        [113.335259,23.125820],
+    ];
+
+    // var lineArr = [
+    //     [ 113.340233,23.124458],
+    //     [ 113.334478,23.126063],
+    //     [ 113.334478,23.126063],
+    //     [ 113.340234,23.124459],
+    //     [ 113.340234,23.124459],
+    //     [ 113.340234,23.124459],
+    //     [ 113.340234,23.124459]
+    // ];
+//     var lineArr = [
+//         [113.336266,23.114292],
+// [113.336143,23.114323],
+// [113.33606,23.114346],
+// [113.335854,23.11437],
+// [113.335625,23.114384],
+// [113.335297,23.11441],
+// [113.334671,23.114418],
+// [113.334068,23.114422],
+// [113.333977,23.114445],
+// [113.333969,23.114445],
+// [113.333961,23.114639],
+// [113.333969,23.115051],
+// [113.333961,23.115728],
+// [113.333939,23.11635],
+// [113.333908,23.117582],
+// [113.333908,23.117796],
+// [113.333878,23.118256],
+// [113.33387,23.118473],
+// [113.333855,23.118879],
+// [113.333839,23.119028],
+// [113.333839,23.119419],
+// [113.333809,23.119862],
+// [113.333801,23.120291],
+// [113.333786,23.120642],
+// [113.333771,23.120733],
+// [113.333748,23.120934],
+// [113.333633,23.121151],
+// [113.333626,23.121475],
+// [113.333611,23.121948],
+// [113.333603,23.121948],
+// [113.333771,23.121958],
+// [113.333755,23.12224],
+// [113.333717,23.123156],
+// [113.333694,23.123446],
+// [113.33358,23.123468],
+// [113.33358,23.123468],
+// [113.333565,23.123625],
+// [113.333549,23.124132],
+// [113.333626,23.124302],
+// [113.333618,23.124674],
+// [113.333611,23.124674],
+// [113.333649,23.124735],
+// [113.333733,23.124805],
+// [113.333817,23.124847],
+// [113.333817,23.124847],
+// [113.334419,23.124796]
+//     ];
+    var polyline = new AMap.Polyline({
+        path: lineArr,          //设置线覆盖物路径
+        strokeColor: "#3366FF", //线颜色
+        strokeOpacity: 1,       //线透明度
+        strokeWeight: 5,        //线宽
+        strokeStyle: "solid",   //线样式
+        strokeDasharray: [10, 5] //补充线样式
+    });
+    polyline.setMap(map);
+    // //步行导航
+    // AMap.service(["AMap.Walking"], function() {
+    //     var MWalk = new AMap.Walking({
+    //         map: map,
+    //         panel: "panel"
+    //     }); //构造路线导航类
+    //     //根据起终点坐标规划步行路线
+    //     // MWalk.search([[116.379028,39.865042],[116.399028,39.885042],[116.427281,39.903719]], function(status, result){
+    //     MWalk.search([
+    //         {keyword: '北京市地震局(公交站)'},
+    //         {keyword: '亦庄文化园(地铁站)'}
+    //     ], function(status, result) {
+    //         console.log(status + result);
+    //     });
+    // });
+</script>
+  <script type="text/javascript" src="http://webapi.amap.com/demos/js/liteToolbar.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>重叠四边形</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        var ball = {x: 800, y: 500, vx: -1, vy: -10, g: 0.2, xg: -0.01};
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+
+            // context.rect(200, 200, 400, 300);
+            drawRect(context, 200, 200, 400, 200, 8, "#058", "#e29");
+
+            context.lineWidth = 6;
+            context.strokeStyle = "#adc";
+            context.fillStyle = "rgba(100,100,100,0.5)";
+            context.fillRect(300, 300, 400, 200);
+            context.strokeRect(300, 300, 400, 200);
+
+            /////////////////////////////////////////
+            // a c e
+            // b d f
+            // 0 0 1
+            /////////////////////////////////////////
+            // a,d 水平、垂直缩放
+            // b,c 水平、垂直倾斜
+            // e,f 水平、垂直位移
+            /////////////////////////////////////////
+
+            context.save();
+            context.transform(1,0.1,0.1,1,0,0);
+            context.fillRect(200,550,100,100);
+            context.strokeRect(200,550,100,100);
+            context.restore();
+        }
+
+        function drawRect(ctx, x, y, width, height, lineWidth, strokeStyle, fillStyle){
+            // 设置状态
+            ctx.beginPath();
+            // ctx.moveTo(x, y);
+            // ctx.lineTo(x + width, y);
+            // ctx.lineTo(x + width, y + height);
+            // ctx.lineTo(x, y + height);
+            ctx.rect(x, y, width, height);
+            ctx.closePath();
+
+            // 设置样式
+            ctx.lineWidth = lineWidth;
+            ctx.strokeStyle = strokeStyle;
+            ctx.fillStyle = fillStyle;
+
+            // 进行绘制
+            ctx.fill();
+            ctx.stroke();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>

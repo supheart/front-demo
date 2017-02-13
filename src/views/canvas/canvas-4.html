@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圆角矩形</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+
+            // 绘制矩形
+            // var r = 50;
+            // var marginLeft = 100, marginTop = 100;
+            // var rw = 500, rh = 300;
+            // context.beginPath();
+            // context.arc(marginLeft + r, marginTop + r, r, Math.PI, 1.5*Math.PI);
+            // context.lineTo(marginLeft + r + rw, marginTop);
+            // context.arc(marginLeft + r + rw, marginTop + r, r, 1.5*Math.PI, 2*Math.PI);
+            // context.lineTo(marginLeft + r + rw + r, marginTop + r + rh);
+            // context.arc(marginLeft + r + rw, marginTop + r + rh, r, 0, 0.5*Math.PI);
+            // context.lineTo(marginLeft + r, marginTop + r + rh + r);
+            // context.arc(marginLeft + r, marginTop + r + rh, r, 0.5*Math.PI, Math.PI);
+            // context.closePath();
+            // context.strokeStyle = "#000";
+            // context.lineWidth = 2;
+            // context.stroke();
+
+            drawRoundRect(context, 100, 100, 600, 400, 50);
+        }
+
+        function drawRoundRect(ctx, x, y, width, height, radius){
+            ctx.save();
+            ctx.translate(x, y);
+            pathRoundRect(ctx, width, height, radius);
+            ctx.strokeStyle = "#000";
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function pathRoundRect(ctx, width, height, radius){
+            ctx.beginPath();
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius, Math.PI, 1.5*Math.PI);
+            ctx.lineTo(width - radius, 0);
+            ctx.arc(width - radius, radius, radius, 1.5*Math.PI, 2*Math.PI);
+            ctx.lineTo(width, height - radius);
+            ctx.arc(width - radius, height - radius, radius, 0, 0.5*Math.PI);
+            ctx.lineTo(radius, height);
+            ctx.arc(radius, height - radius, radius, 0.5*Math.PI, Math.PI);
+            ctx.closePath();
+            ctx.closePath();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>

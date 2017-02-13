@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>swiper test</title>
+    <link rel="stylesheet" href="/plugin/Swiper-3.3.1/dist/css/swiper.min.css">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #9289af;
+        }
+        .swiper-container {
+            border: 1px solid #00a;
+            width: 620px;
+            height: 320px;
+        }
+
+        .swiper-slide{
+            text-align: center;
+            font-size: 28px;
+        }
+        .swiper-slide p{
+            padding-top: 30px;
+        }
+    </style>
+    <script src="/plugin/Swiper-3.3.1/dist/js/swiper.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            console.log('start swiper page!');
+
+            var sw = new Swiper('.swiper-container', {
+                // initialSlide: 1,
+                direction: 'horizontal',
+                // loop: true,
+                pagination: '.swiper-pagination',
+
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+
+                // scrollbar: '.swiper-scrollbar',
+                // autoplay: 3000,
+
+                //转换结束触发
+                onSlideChangeEnd: function(swiper){
+                    alert('事件触发了; 当亲id：' + swiper.activeIndex);
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div>a swiper page</div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <p>slide 1</p></div>
+            <div class="swiper-slide">
+                <p>slide 2</p></div>
+            <div class="swiper-slide">
+                <p>slide 3</p>
+            </div>
+        </div>
+
+        <!--分页器-->
+        <div class="swiper-pagination"></div>
+
+        <!--前进后退按钮-->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!--滚动条-->
+        <!--<div class="swiper-scrollbar"></div>-->
+    </div>
+</body>
+</html>

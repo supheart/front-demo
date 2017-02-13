@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css test</title>
+    <style type="text/css">
+        body{perspective: 800px;perspective-origin: 50% 50%; transform-style: preserve-3d;}
+        .block{width: 500px; height: 300px; margin: 20px auto; background-color: #e69; transition:all 3s;}
+        .block:hover{background-color: #69e; transform:rotate(360deg) translate(100px,0) }
+
+        /*.block-3d{width: 300px; height: 300px; margin: 20px auto; background-color: #979; transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg)}*/
+        .block-3d{width: 300px; height: 300px; margin: 20px auto; background-color: #979;}
+        .range{width: 800px; margin: 0 auto;}
+        .range input{width: 780px;}
+        .reset{width: 800px; margin: 30px auto; text-align: center;}
+        .reset button{width: 120px; height: 50px; font-size: 16px; color: #fff; background-color: #e69; border: none; border-radius: 5px; margin-right: 20px; cursor: pointer;}
+    </style>
+    <script type="text/javascript">
+        function transformAll(translatexValue, translateyValue, translatezValue, rotatexValue, rotateyValue, rotatezValue){
+            var tlsx = document.getElementById("translatex-span");
+            var tlsy = document.getElementById("translatey-span");
+            var tlsz = document.getElementById("translatez-span");
+
+            var rtsx = document.getElementById("rotatex-span");
+            var rtsy = document.getElementById("rotatey-span");
+            var rtsz = document.getElementById("rotatez-span");
+
+            var translatex = 0, translatey = 0, translatez = 0,
+                rotatex = 0, rotatey = 0, rotatez = 0;
+            
+            translatexValue ? translatex = document.getElementById("translatex").value = 0 : translatex = document.getElementById("translatex").value;
+            translateyValue ? translatex = document.getElementById("translatey").value = 0 : translatey = document.getElementById("translatey").value;
+            translatezValue ? translatex = document.getElementById("translatez").value = 0 : translatez = document.getElementById("translatez").value;
+
+            rotatexValue ? translatex = document.getElementById("rotatex").value = 0 : rotatex = document.getElementById("rotatex").value;
+            rotateyValue ? translatex = document.getElementById("rotatey").value = 0 : rotatey = document.getElementById("rotatey").value;
+            rotatezValue ? translatex = document.getElementById("rotatez").value = 0 : rotatez = document.getElementById("rotatez").value;
+
+            var block = document.getElementsByClassName("block-3d")[0];
+
+            block.style.transform = "rotateX(" + rotatex + "deg) rotateY(" + rotatey + "deg) rotateZ(" + rotatez + "deg) translateX(" + translatex + "px) translateY(" + translatey + "px) translateZ(" + translatez + "px)";
+            tlsx.innerHTML = translatex;
+            tlsy.innerHTML = translatey;
+            tlsz.innerHTML = translatez;
+
+            rtsx.innerHTML = rotatex;
+            rtsy.innerHTML = rotatey;
+            rtsz.innerHTML = rotatez;
+        }
+
+        window.onload = function(){
+            console.log('start log...');
+        }
+    </script>
+</head>
+<body>
+  <!--<div class="block"></div>-->
+  <div class="block-3d"></div>
+  <div class="range">
+      <p>translate x: <span id="translatex-span">0</span>px</p>
+      <input type="range" id="translatex" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+      <p>translate y: <span id="translatey-span">0</span>px</p>
+      <input type="range" id="translatey" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+      <p>translate z: <span id="translatez-span">0</span>px</p>
+      <input type="range" id="translatez" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+  </div>
+  <div class="range">
+      <p>rotate x: <span id="rotatex-span">0</span>deg</p>
+      <input type="range" id="rotatex" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+      <p>rotate y: <span id="rotatey-span">0</span>deg</p>
+      <input type="range" id="rotatey" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+      <p>rotate z: <span id="rotatez-span">0</span>deg</p>
+      <input type="range" id="rotatez" min="-360" max="360" value="0" oninput="transformAll()" ><br>
+  </div>
+  <div class="reset">
+      <button onclick="transformAll(1, 1, 1)">重置translate</button>
+      <button onclick="transformAll(0, 0, 0, 1, 1, 1)">重置rotate</button>
+      <button onclick="transformAll(1, 1, 1,1, 1, 1)">重置all</button>
+  </div>
+</body>
+</html>

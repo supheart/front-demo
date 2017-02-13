@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>五角星</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        var marginLeft = 400, marginTop = 400;
+        var largeRadius = 300, smallRadius = 180;
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 1200;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+            // var linearGradient = context.createLinearGradient(0,0,0,canvas.height);
+            // linearGradient.addColorStop(0.0, "#000");
+            // linearGradient.addColorStop(1.0, "#035");
+            var radialGradient = context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.width/2);
+            radialGradient.addColorStop(0.0, "#000");
+            radialGradient.addColorStop(1.0, "#035");
+
+            // 绘制黑色背景
+            context.fillStyle = radialGradient;
+            context.fillRect(0,0,canvas.width,canvas.height);
+
+            for(var i = 0;i < 180; i++){
+                var r = Math.random() * 5 + 5;
+                var x = Math.random() * (context.canvas.width);
+                x = x < r ? x + r : x;
+                x = x > context.canvas.width - r ? x - r : x;
+                var y = Math.random() * (context.canvas.height) * 0.6;
+                y = y < r ? y + r : y;
+                var rot = Math.random() * 360;
+                drawStar(context, r, x, y, rot);
+            }
+            // drawStar(context, largeRadius, smallRadius, marginLeft, marginTop, 36);
+        }
+
+        function drawStar(ctx, r, x, y, rot){
+            // 保存绘图状态
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rot/180*Math.PI);
+            ctx.scale(r, r);
+
+            // 绘制指定形状路径
+            starPath(ctx);
+
+            ctx.lineWidth = 3;
+            ctx.fillStyle = "#fb3";
+            // ctx.strokeStyle = "#fd5";
+            // ctx.lineJoin = "round";
+            
+            ctx.fill();
+            // ctx.stroke();
+
+            // 恢复绘图状态
+            ctx.restore();
+        }
+
+        function starPath(ctx){
+            ctx.beginPath();
+            for(var i = 0;i < 5; i++){
+                // 角度是18 + i*72，javasript是使用弧度制，因此值是(18 + i*72)/180*Math.PI
+                ctx.lineTo(Math.cos((18 + i*72)/180*Math.PI), 
+                                -Math.sin((18 + i*72)/180*Math.PI)); 
+                ctx.lineTo(Math.cos((54 + i*72)/180*Math.PI)*0.5, 
+                                -Math.sin((54 + i*72)/180*Math.PI)*0.5);
+            }
+            ctx.closePath();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>

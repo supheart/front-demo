@@ -1,0 +1,36 @@
+{
+  "name": "milo-pro",
+  "version": "1.0.0",
+  "description": "a project by milo-pro",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dist": "node dist/app.js"
+  },
+  "author": "milo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "compression": "^1.6.2",
+    "connect-redis": "^3.0.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.4.2",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "ioredis": "^1.15.1",
+    "knex": "^0.11.5",
+    "log4js": "^0.6.36",
+    "multer": "^1.2.1",
+    "mysql": "^2.10.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^1.5.3",
+    "eslint": "^3.2.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-clean-css": "^2.0.9",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-sequence": "^0.4.5",
+    "gulp-sass": "^2.3.1"
+  }
+}

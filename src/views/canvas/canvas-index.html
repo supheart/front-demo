@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas test</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        var ball = {x: 800, y: 500, vx: -1, vy: -10, g: 0.2, xg: -0.01};
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            // if(!context){
+            //     alert('当前浏览器不支持Canvas，请更换浏览器后再试')
+            // }
+            context.beginPath();
+            context.moveTo(100, 100);
+            context.lineTo(700, 700);
+            context.lineTo(100, 700);
+            context.lineTo(100, 100);
+            context.closePath();
+
+            context.fillStyle = "rgb(200,100,30)";
+            context.fill();
+
+            context.lineWidth = 5;
+            context.strokeStyle = "#005588";
+
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(400, 200);
+            context.lineTo(800, 400);
+            context.closePath();
+
+            context.lineWidth = 2;
+            context.strokeStyle = "#ff5588";
+
+            context.stroke();
+
+            context.beginPath();
+            context.arc(500,200,150,0,0.5* Math.PI, true);
+            // context.closePath();
+            context.stroke();
+            context.fill();
+
+            // 绘制球体抛物线
+            context.fillStyle = "#005588";
+            setInterval(function(){
+                context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+                context.beginPath();
+                context.arc(ball.x, ball.y, 18, 0, 2*Math.PI);
+                context.closePath();
+                context.fill();
+                update();
+                if(ball.y > context.canvas.height - 18){
+                    ball.y = context.canvas.height - 18;
+                    ball.vy = -ball.vy * 0.5;
+                }
+            }, 15);
+        }
+
+        function update(){
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            ball.vy += ball.g;
+            ball.vx += ball.xg || 0;
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768"></canvas>
+</body>
+</html>

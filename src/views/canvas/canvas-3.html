@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>背景</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+
+            // 线性渐变
+            var linearGradient = context.createLinearGradient(100,100,300,300);
+            linearGradient.addColorStop(0.0, "#fff");
+            linearGradient.addColorStop(1.0, "#000");
+            context.fillStyle = linearGradient;
+            context.fillRect(100,100,300,300)
+
+            // 径向渐变
+            var radialGradient = context.createRadialGradient(600,600,50,600,600,150);
+            radialGradient.addColorStop(0.0, "#fff");
+            radialGradient.addColorStop(1.0, "#005588");
+            context.fillStyle = radialGradient;
+            // context.fillRect(450,450,300,300);
+            context.beginPath();
+            context.arc(600,600,150,0,2*Math.PI);
+            context.closePath();
+            context.fill();
+            
+            // 图片背景
+            var backgroundImage = new Image();
+            backgroundImage.src = "/images/wenli1.jpg";
+            backgroundImage.onload = function(){
+                var pattern = context.createPattern(backgroundImage, "no-repeat");
+                context.fillStyle = pattern;
+                context.fillRect(0,0,800,800);
+            }
+
+            // canvas背景
+            var backCanvas = createBackgroundCanvas();
+            var canvasPattern = context.createPattern(backCanvas, "repeat");
+            context.fillStyle = canvasPattern;
+            context.fillRect(0,0,800,800);
+        }
+
+        // 创建画布背景
+        function createBackgroundCanvas(){
+            var backCanvas = document.createElement("canvas");
+            backCanvas.width = 100;
+            backCanvas.height = 100;
+            var backCanvasContext = backCanvas.getContext("2d");
+            drawStar(backCanvasContext, 50, 50, 50, 0);
+            return backCanvas;
+        }
+
+        function drawStar(ctx, r, x, y, rot){
+            // 保存绘图状态
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rot/180*Math.PI);
+            ctx.scale(r, r);
+
+            // 绘制指定形状路径
+            starPath(ctx);
+
+            ctx.lineWidth = 3;
+            ctx.fillStyle = "#fb3";
+            // ctx.strokeStyle = "#fd5";
+            // ctx.lineJoin = "round";
+            
+            ctx.fill();
+            // ctx.stroke();
+
+            // 恢复绘图状态
+            ctx.restore();
+        }
+
+        function starPath(ctx){
+            ctx.beginPath();
+            for(var i = 0;i < 5; i++){
+                // 角度是18 + i*72，javasript是使用弧度制，因此值是(18 + i*72)/180*Math.PI
+                ctx.lineTo(Math.cos((18 + i*72)/180*Math.PI), 
+                                -Math.sin((18 + i*72)/180*Math.PI)); 
+                ctx.lineTo(Math.cos((54 + i*72)/180*Math.PI)*0.5, 
+                                -Math.sin((54 + i*72)/180*Math.PI)*0.5);
+            }
+            ctx.closePath();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>
