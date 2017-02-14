@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>tinyHeart</title>
+    <script src="/js/tinyHeart/main.js"></script>
+    <script src="/js/tinyHeart/background.js"></script>
+    <style type="text/css">
+        #canvas-wapper{
+            margin: 10px auto; padding: 0; width: 1200px; height: 800px; position: relative;
+        }
+        #canvas-box{
+            margin: 0; padding: 0; width: 1200px; height: 800px; position: relative; top: 0; left: 0;
+        }
+        #mainCanvas{
+            position: absolute; top: 0; left: 0; width: 1200px; height: 800px; border: 1px solid #aaa; z-index: 1;
+        }
+        #bgCanvas{
+            position: absolute; top: 0; left: 0; width: 1200px; height: 800px; border: 1px solid #058; z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-wapper">
+        <div id="canvas-box">
+            <canvas id="mainCanvas"></canvas>
+            <canvas id="bgCanvas"></canvas>
+        </div>
+    </div>
+</body>
+</html>
