@@ -36,20 +36,45 @@
             // context.lineWidth = 2;
             // context.stroke();
 
-            drawRoundRect(context, 100, 100, 600, 400, 50);
+            // drawRoundRect(context, 100, 100, 600, 400, 50);
+
+            fillRoundRect(context, 150, 150, 500, 500, 10, "#bbada0");
+            for(var i = 0; i < 4; i++){
+                for(var j = 0; j < 4; j++){
+                    fillRoundRect(context, 170 + i*120, 172 + j*120, 100, 100, 6, "#ccc0b3");
+                }
+            }
         }
 
-        function drawRoundRect(ctx, x, y, width, height, radius){
+        // 绘制圆角矩形
+        function strokeRoundRect(ctx, x, y, width, height, radius, lineWidth, strokeStyle){
+            if(2*radius > width || 2*radius > height){
+                return;
+            }
             ctx.save();
             ctx.translate(x, y);
             pathRoundRect(ctx, width, height, radius);
-            ctx.strokeStyle = "#000";
+            ctx.lineWidth = lineWidth || 1;
+            ctx.strokeStyle = strokeStyle || "#000";
             ctx.stroke();
             ctx.restore();
         }
 
+        // 填充圆角矩形
+        function fillRoundRect(ctx, x, y, width, height, radius, fillColor){
+            if(2*radius > width || 2*radius > height){
+                return;
+            }
+            ctx.save();
+            ctx.translate(x, y);
+            pathRoundRect(ctx, width, height, radius);
+            ctx.fillStyle = fillColor || "#aaa";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // 设置圆角矩形状态
         function pathRoundRect(ctx, width, height, radius){
-            ctx.beginPath();
             ctx.beginPath();
             ctx.arc(radius, radius, radius, Math.PI, 1.5*Math.PI);
             ctx.lineTo(width - radius, 0);
@@ -58,7 +83,6 @@
             ctx.arc(width - radius, height - radius, radius, 0, 0.5*Math.PI);
             ctx.lineTo(radius, height);
             ctx.arc(radius, height - radius, radius, 0.5*Math.PI, Math.PI);
-            ctx.closePath();
             ctx.closePath();
         }
     </script>

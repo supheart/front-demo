@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>合成状态</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+        .buttons{margin: 0 auto; width: 1200px; text-align: center;}
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function(){
+            console.log('start log...');
+
+            drawCompositeOperation("source-over");
+
+            var buttons = document.getElementsByTagName("button");
+            for(var i in buttons){
+                buttons[i].onclick = function(){
+                    drawCompositeOperation(this.innerText);
+                    return false;
+                }
+            }
+        }
+
+        function drawCompositeOperation(compositeType){
+            var canvas = document.getElementById('canvas');
+            canvas.width = 1200;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // draw title
+            context.font = "bold 40px Arial";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillStyle = "#058";
+            context.fillText("globalCompositeOperation = " + compositeType, canvas.width / 2, 60);
+
+            // draw a rect
+            context.fillStyle = "blue";
+            context.fillRect(300, 150, 500, 500);
+
+            // draw a triangle
+            context.globalCompositeOperation = compositeType;
+            context.fillStyle = "red";
+            context.beginPath()
+            context.moveTo(700, 250);
+            context.lineTo(1000, 750);
+            context.lineTo(400, 750);
+            context.closePath();
+            context.fill();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+    <div class="buttons">
+        <button>source-over</button>
+        <button>source-atop</button>
+        <button>source-in</button>
+        <button>source-out</button>
+        <button>destination-over</button>
+        <button>destination-atop</button>
+        <button>destination-in</button>
+        <button>destination-out</button>
+        <button>lighter</button>
+        <button>darker</button>
+        <button>copy</button>
+        <button>xor</button>
+    </div>
+</body>
+</html>

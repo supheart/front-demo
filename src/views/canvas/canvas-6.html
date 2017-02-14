@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字阴影</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+
+            var str = "文字填充效果！！！";
+            context.font = "bold 40px arial";
+            context.fillStyle = "#058";
+            context.fillText(str, 100, 100);
+            
+            context.font = "bolder 40px arial";
+            context.fillStyle = "#058";
+            context.fillText(str, 100, 200);
+
+            context.strokeStyle = "#058";
+            context.strokeText(str, 100, 300);
+
+            context.shadowColor = "gray";
+            context.shadowOffsetX = 20;
+            context.shadowOffsetY = 20;
+            context.shadowBlur = 5;
+
+
+            context.globalAlpha = 0.7;
+            context.fillRect(200,400, 300, 300);
+            
+            context.globalCompositeOperation = "source-atop";
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>

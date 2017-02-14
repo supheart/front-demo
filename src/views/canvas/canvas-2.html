@@ -8,6 +8,7 @@
             border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
         }
     </style>
+    <script src="/js/canvas-func.js"></script>
     <script type="text/javascript">
         var marginLeft = 400, marginTop = 400;
         var largeRadius = 300, smallRadius = 180;
@@ -42,6 +43,28 @@
                 drawStar(context, r, x, y, rot);
             }
             // drawStar(context, largeRadius, smallRadius, marginLeft, marginTop, 36);
+
+            // 绘制月亮
+            fillMoon(context, 2, 900, 200, 100, 30);
+            drawLand(context, canvas.width, canvas.height);
+        }
+
+        // 绘制一片绿地
+        function drawLand(ctx, width, height){
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(0, height/4*3);
+            ctx.bezierCurveTo(width/8*3, height/2, width/8*5, height, width, height/4*3);
+            ctx.lineTo(width, height);
+            ctx.lineTo(0, 800);
+            ctx.closePath();
+
+            var landStyle = ctx.createLinearGradient(0, 800, 0, 0);
+            landStyle.addColorStop(0.0, "#030");
+            landStyle.addColorStop(1.0, "#580");
+            ctx.fillStyle = landStyle;
+            ctx.fill();
+            ctx.restore();
         }
 
         function drawStar(ctx, r, x, y, rot){

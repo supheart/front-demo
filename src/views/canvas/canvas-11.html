@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非零环绕原则</title>
+    <style type="text/css">
+        #canvas{
+            border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
+        }
+    </style>
+    <script type="text/javascript">
+        var searchLight = {x: 400, y: 400, radius: 150, vx: Math.random()*8 + 5, vy: Math.random()*8 + 5};
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+
+            context.beginPath();
+            context.rect(100, 100, 600, 600);
+            pathRect(context, 200, 200, 400, 200);
+            pathTriangle(context, 300, 450, 150, 650, 450, 650);
+            context.arc(550, 550, 100, 0, 2*Math.PI, true);
+            context.closePath();
+
+            context.fillStyle = "#058";
+            context.shadowColor = "gray";
+            context.shadowOffsetX = 10;
+            context.shadowOffsetY = 10;
+            context.shadowBlur = 10;
+            context.fill();
+        }
+        function pathRect(ctx, x, y, width, height){
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + height);
+            ctx.lineTo(x + width, y + height);
+            ctx.lineTo(x + width, y);
+        }
+
+        function pathTriangle(ctx, x1, y1, x2, y2, x3, y3){
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x3, y3);
+            ctx.lineTo(x1, y1);
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+</body>
+</html>

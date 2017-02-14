@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>球运动</title>
+    <style type="text/css">
+        .canvas-wepper{
+            width: 1200px; height: 800px; position: relative; margin: 10px auto;
+        }
+        #canvas{
+            border: 1px #e2e2e2 solid; 
+        }
+        .controller{
+            position: absolute; top: 30px; left: 30px; background-color: rgba(0, 85, 116, 0.7); padding: 5px 20px 25px 20px; border-radius: 10px;
+        }
+        .controller button{
+            padding: 5px 10px; min-width: 36px; height: 28px; border: none; border-radius: 5px; vertical-align: middle; margin:0 3px; cursor: pointer; color: #000;
+        }
+        .controller button:nth-child(3){
+            background-color: #000;
+        }
+        .controller button:nth-child(4){
+            background-color: #fff;
+        }
+    </style>
+    <script type="text/javascript">
+
+        var balls = [];
+        var isMoving = false;
+        var themeColor = "white";
+
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            canvas.width = 1200;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+            context.globalAlpha = 0.6;
+
+            for(var i = 0; i < 100; i++){
+                var R = Math.floor(Math.random()*255);
+                var G = Math.floor(Math.random()*255);
+                var B = Math.floor(Math.random()*255);
+                var radius = Math.random()*50 + 20;
+                context.fillStyle = "rgb(" + R + "," + G + "," + B + ")";
+
+                aBall = {
+                    color: "rgb(" + R + "," + G + "," + B + ")",
+                    radius: radius,
+                    x: Math.random()*(canvas.width - 2*radius) + radius,
+                    y: Math.random()*(canvas.height - 2*radius) + radius,
+                    vx: (Math.random()*1) * Math.pow(-1, Math.floor(Math.random()*100)),
+                    vy: (Math.random()*1) * Math.pow(-1, Math.floor(Math.random()*100)),
+                };
+                balls[i] = aBall;
+
+                setInterval(function(){
+                    draw(context);
+                    if(isMoving){
+                        update(canvas.width, canvas.height);
+                    }
+                }, 50);
+            }
+
+            document.getElementById("run").onclick = function(){
+                isMoving = !isMoving;
+                if(isMoving){
+                    this.innerHTML = "停止运动";
+                }else{
+                    this.innerHTML = "开始运动";
+                }
+                return false;
+            }
+
+            document.getElementById("black-bg").onclick = function(){
+                themeColor = "black";
+                return false;
+            }
+            document.getElementById("white-bg").onclick = function(){
+                themeColor = "white";
+                return false;
+            }
+        }
+
+        // 绘制小球
+        function draw(ctx){
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            if(themeColor == "black"){
+                ctx.fillStyle = "#000";
+                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            }
+            for(var i = 0; i < balls.length; i++){
+                ctx.globalCompositeOperation = "lighter";
+                ctx.fillStyle = balls[i].color;
+
+                ctx.beginPath();
+                ctx.arc(balls[i].x, balls[i].y, balls[i].radius, 0, Math.PI*2);
+                ctx.closePath();    
+                ctx.fill();
+            }
+        }
+
+        // 更新，重新计算小球位置状态
+        function update(canvasWidth, canvasHeight){
+            for(var i = 0; i < balls.length; i++){
+                balls[i].x += balls[i].vx;
+                balls[i].y += balls[i].vy;
+
+                if(balls[i].x - balls[i].radius <= 0){
+                    balls[i].vx = -balls[i].vx;
+                    balls[i].x = balls[i].radius;
+                }
+                if(balls[i].x + balls[i].radius >= canvasWidth){
+                    balls[i].vx = -balls[i].vx;
+                    balls[i].x = canvasWidth - balls[i].radius;
+                }
+
+                if(balls[i].y - balls[i].radius <= 0){
+                    balls[i].vy = -balls[i].vy;
+                    balls[i].y = balls[i].radius;
+                }
+                if(balls[i].y + balls[i].radius >= canvasHeight){
+                    balls[i].vy = -balls[i].vy;
+                    balls[i].y = canvasHeight - balls[i].radius;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="canvas-wepper">
+        <canvas id="canvas" width="1024" height="768">你当前的浏览器不支持canvas，请更换浏览器后再打开页面</canvas>
+        <div class="controller">
+            <p>控制器</p>
+            <button id="run" >开始运动</button>
+            <button id="black-bg" ></button>
+            <button id="white-bg" ></button>
+    </div>
+    </div>
+</body>
+</html>

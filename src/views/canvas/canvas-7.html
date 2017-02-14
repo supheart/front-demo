@@ -2,40 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>圆弧</title>
+    <title>全局透明</title>
     <style type="text/css">
         #canvas{
             border: 1px #e2e2e2 solid; margin: 10px auto; display: block;
         }
     </style>
-    <script src="/js/canvas-func.js"></script>
     <script type="text/javascript">
 
         window.onload = function(){
             console.log('start log...');
 
             var canvas = document.getElementById('canvas');
-            canvas.width = 800;
+            canvas.width = 1200;
             canvas.height = 800;
 
             var context = canvas.getContext('2d');
+            context.globalAlpha = 0.5;
 
-            context.beginPath();
-            context.moveTo(150, 150);
-            context.arcTo(650, 150, 650, 650, 300);
-            context.lineWidth = 6;
-            context.strokeStyle = "red";
-            context.stroke();
+            for(var i = 0; i < 100; i++){
+                var R = Math.floor(Math.random()*255);
+                var G = Math.floor(Math.random()*255);
+                var B = Math.floor(Math.random()*255);
+                context.fillStyle = "rgb(" + R + "," + G + "," + B + ")";
 
-            context.beginPath();
-            context.moveTo(150, 150);
-            context.lineTo(650, 150);
-            context.lineTo(650, 650);
-            context.lineWidth = 2;
-            context.strokeStyle = "gray";
-            context.stroke();
-
-            fillMoon(context, 2, 400, 400, 300, 180);
+                context.beginPath();
+                context.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*100, 0, Math.PI*2);
+                context.fill();
+            }
+            
         }
     </script>
 </head>
