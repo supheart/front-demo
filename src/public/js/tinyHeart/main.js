@@ -4,7 +4,7 @@ var canvasWidth = 1200, canvasHeight = 800;
 
 var lastTime, deltaTime;
 var bgPic = new Image();
-var fruit, bigFish, babyFish;
+var fruit, bigFish, babyFish, data;
 var mx, my;
 window.onload = function(){
     console.log("start tiny heart log...");
@@ -35,6 +35,7 @@ function init(){
     bigFish.init();
     babyFish = new babyFishObj();
     babyFish.init();
+    data = new dataObj();
 }
 
 function gameLoop(){
@@ -50,7 +51,9 @@ function gameLoop(){
     mainCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     bigFish.draw();
     babyFish.draw();
+    data.draw();
     collisionBigFishAndFruit();
+    collisionBigFishAndBabyFish();
     // console.log("loop");
 
     // 测试帧率

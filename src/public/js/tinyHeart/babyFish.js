@@ -47,7 +47,7 @@ babyFishObj.prototype.init = function(){
     }
 }
 
-// 绘制果实方法
+// 绘制小鱼方法
 babyFishObj.prototype.draw = function(){
     // lerp x, y 取坐标点趋向指定坐标点，这里指小鱼坐标趋向鼠标坐标
     var lerpDistanceCount = 0.99;
@@ -92,5 +92,10 @@ babyFishObj.prototype.draw = function(){
     mainCtx.drawImage(this.babyBody.images[this.babyBody.imgIndex], -this.babyBody.images[this.babyBody.imgIndex].width / 2, -this.babyBody.images[this.babyBody.imgIndex].height / 2);
     mainCtx.drawImage(this.babyEye.images[this.babyEye.imgIndex], -this.babyEye.images[this.babyEye.imgIndex].width / 2, -this.babyEye.images[this.babyEye.imgIndex].height / 2);
     mainCtx.restore();
+}
+
+// 小鱼喂食后的状态
+babyFishObj.prototype.recover = function(){
+    this.babyBody.imgIndex = 0;
 }
 
