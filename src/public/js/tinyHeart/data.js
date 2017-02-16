@@ -2,7 +2,9 @@ var dataObj = function(){
     this.fruitNum = 0;
     this.double = 1;
     this.score = 0;
-    this.gameOver = false;
+    this.isStart = false;
+    this.isStop = false;
+    this.gameOver = true;
     this.alpha = 0;
 }
 
@@ -12,6 +14,11 @@ var dataObj = function(){
 dataObj.prototype.reset = function(){
     this.fruitNum = 0;
     this.double = 1;
+}
+
+// 重置分数
+dataObj.prototype.resetScore = function(){
+    this.score = 0;
 }
 
 // 绘制字头
@@ -30,7 +37,7 @@ dataObj.prototype.draw = function(){
     mainCtx.fillText("Score: " + this.score, canvasWidth / 2, canvasHeight - lineHeight);
 
     // 绘制 gmeover
-    if(this.gameOver){
+    if(this.gameOver && this.isStart){
         mainCtx.font = "bold 32px Verdana";
         this.alpha = this.alpha >= 1 ? 1 : this.alpha + deltaTime * 0.0003;
         mainCtx.fillStyle = "rgba(255, 255, 255, " + this.alpha + ")";

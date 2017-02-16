@@ -12,9 +12,17 @@ window.onload = function(){
     lastTime = Date.now();
     deltaTime = 0;
     gameLoop();
+    document.getElementsByTagName("html")[0].onkeydown = function(e){
+        // console.log(e);
+        if(e.code == "Space"){
+            stopGame();
+        }
+    }
 }
 
 function init(){
+    // 设置分数
+    document.getElementById("score").innerHTML = window.localStorage.maxScore || 0;
     mainCanvas =  document.getElementById("mainCanvas");
     mainCtx = mainCanvas.getContext("2d");
     bgCanvas = document.getElementById("bgCanvas");
@@ -54,13 +62,16 @@ function gameLoop(){
 
     // mainCanvas draw
     mainCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-    bigFish.draw();
     babyFish.draw();
+    bigFish.draw();
     data.draw();
+    if(!data.isStop){
+        collisionBigFishAndFruit();
+        collisionBigFishAndBabyFish();
+    }
+    
     wave.draw();
     dust.draw();
-    collisionBigFishAndFruit();
-    collisionBigFishAndBabyFish();
     // console.log("loop");
 
     // 测试帧率

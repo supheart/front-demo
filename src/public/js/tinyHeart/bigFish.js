@@ -50,6 +50,26 @@ bigFishObj.prototype.init = function(){
 
 // 绘制大鱼方法
 bigFishObj.prototype.draw = function(){
+    if(data.isStop){
+        mainCtx.save();
+        mainCtx.translate(this.x, this.y);
+        mainCtx.rotate(this.angle);
+        mainCtx.drawImage(this.bigTail.images[this.bigTail.imgIndex], -this.bigTail.images[this.bigTail.imgIndex].width / 2 + 25, -this.bigTail.images[this.bigTail.imgIndex].height / 2);
+        // mainCtx.drawImage(this.bigBody.images[this.bigBody.imgIndex], -this.bigBody.images[this.bigBody.imgIndex].width / 2, -this.bigBody.images[this.bigBody.imgIndex].height / 2);
+        // 根据吃到的果实判断显示什么颜色的身体
+        if(data.double == 1){
+            mainCtx.drawImage(this.bigBody.imagesOrange[this.bigBody.imgIndex], -this.bigBody.imagesOrange[this.bigBody.imgIndex].width / 2, -this.bigBody.imagesOrange[this.bigBody.imgIndex].height / 2);
+        }else{
+            mainCtx.drawImage(this.bigBody.imagesBlue[this.bigBody.imgIndex], -this.bigBody.imagesBlue[this.bigBody.imgIndex].width / 2, -this.bigBody.imagesBlue[this.bigBody.imgIndex].height / 2);
+        }
+        mainCtx.drawImage(this.bigEye.images[this.bigEye.imgIndex], -this.bigEye.images[this.bigEye.imgIndex].width / 2, -this.bigEye.images[this.bigEye.imgIndex].height / 2);
+        // mainCtx.drawImage(this.bigTail, -this.bigTail.width / 2 + 28, -this.bigTail.height / 2);
+        // mainCtx.drawImage(this.bigBody, -this.bigBody.width / 2, -this.bigBody.height / 2);
+        // mainCtx.drawImage(this.bigEye, -this.bigEye.width / 2, -this.bigEye.height / 2);
+        mainCtx.restore();
+        return;
+    }
+
     // lerp x, y 取坐标点趋向指定坐标点，这里指大鱼坐标趋向鼠标坐标
     var lerpDistanceCount = 0.92;
     this.x = lerpDistance(mx, this.x, lerpDistanceCount);
@@ -115,5 +135,13 @@ bigFishObj.prototype.eat = function(){
     // 计算身体动画
     // this.bigBody.imgIndex = (this.bigBody.imgIndex + 1) % this.bigBody.imgCount;
     this.bigBody.imgIndex = this.bigBody.imgIndex + 1 >= this.bigBody.imgCount ? this.bigBody.imgCount - 1 : this.bigBody.imgIndex + 1;
+}
+
+// 大鱼重新开始状态
+bigFishObj.prototype.reset = function(){
+    this.bigBody.imgIndex = 0;
+    this.x = canvasWidth / 2;
+    this.y = canvasHeight / 2;
+    this.angle = 0;
 }
 
