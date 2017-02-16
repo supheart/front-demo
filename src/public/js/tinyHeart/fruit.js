@@ -40,6 +40,7 @@ fruitObj.prototype.draw = function(){
             var picType = this.fruitList[i].type == "orange" ? this.orange : this.blue;
             if(this.fruitList[i].size <= picType.width){
                 // 生长
+                this.fruitList[i].x = aneList[this.fruitList[i].aneId].head;
                 this.fruitList[i].size += this.fruitList[i].vborn*deltaTime;
             }else{
                 // 上升
@@ -62,6 +63,7 @@ fruitObj.prototype.born = function(index){
     var aneId = Math.floor(Math.random()*aneNum);
     this.fruitList[index].x = aneList[aneId].x;
     this.fruitList[index].y = canvasHeight - aneList[aneId].length;
+    this.fruitList[index].aneId = aneId;
     this.fruitList[index].size = 0;
     this.fruitList[index].alive = true;
     this.fruitList[index].type = Math.random()*10 > 7.8 ? "blue" : "orange";

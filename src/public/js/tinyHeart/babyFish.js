@@ -15,7 +15,7 @@ var babyFishObj = function(){
         timer: 0,
         imgIndex: 0,
         imgCount: 20,
-        runTimer: 300
+        runTimer: 800
     }
     this.babyTail = {
         images: [],
@@ -81,7 +81,14 @@ babyFishObj.prototype.draw = function(){
     this.babyBody.timer += deltaTime;
     if(this.babyBody.timer > this.babyBody.runTimer){
         this.babyBody.timer %= this.babyBody.runTimer;
-        this.babyBody.imgIndex = this.babyBody.imgIndex + 1 >= this.babyBody.imgCount ? this.babyBody.imgCount - 1 : this.babyBody.imgIndex + 1;
+        // 判断小鱼是否到了要死亡的一刻
+        if(this.babyBody.imgIndex + 1 >= this.babyBody.imgCount){
+            this.babyBody.imgIndex = this.babyBody.imgCount - 1;
+            data.gameOver = true;
+        }else{
+            this.babyBody.imgIndex = this.babyBody.imgIndex + 1;
+        }   
+        // this.babyBody.imgIndex = this.babyBody.imgIndex + 1 >= this.babyBody.imgCount ? this.babyBody.imgCount - 1 : this.babyBody.imgIndex + 1;
     }
 
     // 绘制
@@ -95,7 +102,9 @@ babyFishObj.prototype.draw = function(){
 }
 
 // 小鱼喂食后的状态
-babyFishObj.prototype.recover = function(){
-    this.babyBody.imgIndex = 0;
+babyFishObj.prototype.recover = function(score){
+    // 根据当前大鱼收获的分数计算小鱼可以恢复的体力，可以恢复为大鱼体力的一半
+    var scoreIndex = Math.ceil(score / 10 / 2);
+    this.babyBody.imgIndex = this.babyBody.imgIndex - scoreIndex <= 0 ? 0 : this.babyBody.imgIndex - scoreIndex;
 }
 

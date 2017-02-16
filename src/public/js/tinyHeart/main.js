@@ -4,7 +4,7 @@ var canvasWidth = 1200, canvasHeight = 800;
 
 var lastTime, deltaTime;
 var bgPic = new Image();
-var fruit, bigFish, babyFish, data;
+var fruit, bigFish, babyFish, wave, dust, data;
 var mx, my;
 window.onload = function(){
     console.log("start tiny heart log...");
@@ -22,6 +22,7 @@ function init(){
 
     mainCanvas.width = bgCanvas.width = canvasWidth;
     mainCanvas.height = bgCanvas.height = canvasHeight;
+
     mx = canvasWidth / 2, my = canvasHeight / 2;
     mainCanvas.addEventListener("mousemove", onMouseMove, false);
     mainCanvas.addEventListener("touchmove", onTouchMove, false);
@@ -35,6 +36,10 @@ function init(){
     bigFish.init();
     babyFish = new babyFishObj();
     babyFish.init();
+    wave = new waveObj();
+    wave.init();
+    dust = new dustObj();
+    dust.init();
     data = new dataObj();
 }
 
@@ -52,6 +57,8 @@ function gameLoop(){
     bigFish.draw();
     babyFish.draw();
     data.draw();
+    wave.draw();
+    dust.draw();
     collisionBigFishAndFruit();
     collisionBigFishAndBabyFish();
     // console.log("loop");
@@ -78,12 +85,14 @@ function onMouseMove(e){
 
     // console.log(e.offsetX + ":" + e.offsetY + ';' + mx + ":" + my + ';' + nmx + ":" + nmy);
 
+    if(data.gameOver) return;
     mx = e.clientX - mainCanvas.getBoundingClientRect().left;
     my = e.clientY - mainCanvas.getBoundingClientRect().top;
 }
 
 // 移动端手机移动
 function onTouchMove(e){
+    if(data.gameOver) return;
     mx = e.touches[0].clientX - mainCanvas.getBoundingClientRect().left;
     my = e.touches[0].clientY - mainCanvas.getBoundingClientRect().top;
 };

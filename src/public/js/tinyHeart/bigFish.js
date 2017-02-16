@@ -11,11 +11,10 @@ var bigFishObj = function(){
         runTimer: 1000
     }
     this.bigBody = {
-        images: [],
-        timer: 0,
+        imagesOrange: [],
+        imagesBlue: [],
         imgIndex: 0,
-        imgCount: 8,
-        runTimer: 1000
+        imgCount: 8
     }
     this.bigTail = {
         images: [],
@@ -38,8 +37,10 @@ bigFishObj.prototype.init = function(){
         this.bigTail.images[i].src = "/images/tinyHeart/bigTail" + i + ".png";
     }
     for(var i = 0; i < this.bigBody.imgCount; i++){
-        this.bigBody.images[i] = new Image();
-        this.bigBody.images[i].src = "/images/tinyHeart/bigSwim" + i + ".png";
+        this.bigBody.imagesOrange[i] = new Image();
+        this.bigBody.imagesOrange[i].src = "/images/tinyHeart/bigSwim" + i + ".png";
+        this.bigBody.imagesBlue[i] = new Image();
+        this.bigBody.imagesBlue[i].src = "/images/tinyHeart/bigSwimBlue" + i + ".png";
     }
     for(var i = 0; i < this.bigEye.imgCount; i++){
         this.bigEye.images[i] = new Image();
@@ -78,19 +79,25 @@ bigFishObj.prototype.draw = function(){
     }
 
     // 计算身体动画
-    this.bigBody.timer += deltaTime;
-    if(this.bigBody.timer > this.bigBody.runTimer){
-        this.bigBody.timer %= this.bigBody.runTimer;
-        // this.bigBody.imgIndex = (this.bigBody.imgIndex + 1) % this.bigBody.imgCount;
-        this.bigBody.imgIndex = this.bigBody.imgIndex + 1 >= this.bigBody.imgCount ? this.bigBody.imgCount - 1 : this.bigBody.imgIndex + 1;
-    }
+    // this.bigBody.timer += deltaTime;
+    // if(this.bigBody.timer > this.bigBody.runTimer){
+    //     this.bigBody.timer %= this.bigBody.runTimer;
+    //     // this.bigBody.imgIndex = (this.bigBody.imgIndex + 1) % this.bigBody.imgCount;
+    //     this.bigBody.imgIndex = this.bigBody.imgIndex + 1 >= this.bigBody.imgCount ? this.bigBody.imgCount - 1 : this.bigBody.imgIndex + 1;
+    // }
 
     // 绘制
     mainCtx.save();
     mainCtx.translate(this.x, this.y);
     mainCtx.rotate(this.angle);
     mainCtx.drawImage(this.bigTail.images[this.bigTail.imgIndex], -this.bigTail.images[this.bigTail.imgIndex].width / 2 + 25, -this.bigTail.images[this.bigTail.imgIndex].height / 2);
-    mainCtx.drawImage(this.bigBody.images[this.bigBody.imgIndex], -this.bigBody.images[this.bigBody.imgIndex].width / 2, -this.bigBody.images[this.bigBody.imgIndex].height / 2);
+    // mainCtx.drawImage(this.bigBody.images[this.bigBody.imgIndex], -this.bigBody.images[this.bigBody.imgIndex].width / 2, -this.bigBody.images[this.bigBody.imgIndex].height / 2);
+    // 根据吃到的果实判断显示什么颜色的身体
+    if(data.double == 1){
+        mainCtx.drawImage(this.bigBody.imagesOrange[this.bigBody.imgIndex], -this.bigBody.imagesOrange[this.bigBody.imgIndex].width / 2, -this.bigBody.imagesOrange[this.bigBody.imgIndex].height / 2);
+    }else{
+        mainCtx.drawImage(this.bigBody.imagesBlue[this.bigBody.imgIndex], -this.bigBody.imagesBlue[this.bigBody.imgIndex].width / 2, -this.bigBody.imagesBlue[this.bigBody.imgIndex].height / 2);
+    }
     mainCtx.drawImage(this.bigEye.images[this.bigEye.imgIndex], -this.bigEye.images[this.bigEye.imgIndex].width / 2, -this.bigEye.images[this.bigEye.imgIndex].height / 2);
     // mainCtx.drawImage(this.bigTail, -this.bigTail.width / 2 + 28, -this.bigTail.height / 2);
     // mainCtx.drawImage(this.bigBody, -this.bigBody.width / 2, -this.bigBody.height / 2);
@@ -101,5 +108,12 @@ bigFishObj.prototype.draw = function(){
 // 大鱼喂食后的状态
 bigFishObj.prototype.empty = function(){
     this.bigBody.imgIndex = 0;
+}
+
+// 计算身体吃果实后变化
+bigFishObj.prototype.eat = function(){
+    // 计算身体动画
+    // this.bigBody.imgIndex = (this.bigBody.imgIndex + 1) % this.bigBody.imgCount;
+    this.bigBody.imgIndex = this.bigBody.imgIndex + 1 >= this.bigBody.imgCount ? this.bigBody.imgCount - 1 : this.bigBody.imgIndex + 1;
 }
 
