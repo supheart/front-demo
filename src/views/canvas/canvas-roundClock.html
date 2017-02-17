@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="/js/clock/round-clock.js"></script>
+    <style type="text/css">
+        #clock{
+            display: block; margin: 10px auto; border: 1px solid #058; position: relative;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var clock = new clockObj("clock");
+            function run(){
+                window.requestAnimationFrame(run);
+                
+                clock.ctx.clearRect(0, 0, clock.width, clock.height);
+                clock.drawBackground();
+                clock.draw();
+            }
+            run();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="clock" width="300" height="300"></canvas>
+</body>
+</html>
