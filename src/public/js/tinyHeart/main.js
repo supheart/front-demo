@@ -15,7 +15,7 @@ window.onload = function(){
     // 监听空格键用于暂停游戏
     document.getElementsByTagName("html")[0].onkeyup = function(e){
         // console.log(e);
-        if(e.code == "Space"){
+        if(e.code == "Space" || e.keyCode == 32){
             stopGame();
         }
     }
