@@ -1,3 +1,4 @@
+// 漂浮物对象
 var dustObj = function(){
     this.images = [];
     this.num = 30;
@@ -30,6 +31,7 @@ dustObj.prototype.init = function(){
 dustObj.prototype.draw = function(){
     for(var i = 0; i < this.num; i++){
         this.dustList[i].alpha += deltaTime * 0.001;
+        // 根据正弦函数计算漂浮物摆动的振幅
         var range = Math.sin(this.dustList[i].alpha) * this.dustList[i].amp;
         bgCtx.drawImage(this.images[this.dustList[i].imageIndex], this.dustList[i].x + range, this.dustList[i].y);
     }

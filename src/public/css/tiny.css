@@ -1,0 +1,90 @@
+#canvas-wapper {
+  margin: 10px auto;
+  padding: 0;
+  width: 1200px;
+  height: 800px;
+  position: relative; }
+
+#canvas-box {
+  margin: 0;
+  padding: 0;
+  width: 1200px;
+  height: 800px;
+  position: relative;
+  top: 0;
+  left: 0; }
+
+#mainCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #aaa;
+  z-index: 1; }
+
+#bgCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #aaa;
+  z-index: 0; }
+
+#controller {
+  position: absolute;
+  width: 1200px;
+  height: 800px;
+  top: 0;
+  left: 0;
+  border: 1px solid #aaa;
+  z-index: 2; }
+
+#ctrlBtn {
+  display: block;
+  width: 120px;
+  height: 36px;
+  font-size: 22px;
+  color: #eee;
+  margin: 100px auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer; }
+
+#scoreDiv {
+  display: block;
+  width: 800px;
+  height: 36px;
+  font: normal 30px Verdana;
+  color: #eee;
+  color: #eee;
+  margin: 310px auto;
+  margin-bottom: 0;
+  text-align: center; }
+
+#play {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: none; }
+
+#playBtn {
+  display: block;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  color: #eee;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: url("/images/tinyHeart/controller/stop.png") no-repeat;
+  background-size: 100% 100%; }
+
+#ctrlBtn:hover, #playBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2); }
+
+#ctrlBtn:active, #playBtn:active {
+  background-color: rgba(255, 255, 255, 0.3); }

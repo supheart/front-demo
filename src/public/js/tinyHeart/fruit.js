@@ -1,3 +1,4 @@
+// 果实对象
 var fruitObj = function(){
     // 初始化果实数组
     this.fruitList = [];

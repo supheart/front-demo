@@ -25,7 +25,6 @@ function initAne(){
 // 画海葵
 function drawAne(){
     // save restore, context设置的样式只在当前范围内有效
-
     bgCtx.save();
     bgCtx.globalAlpha = 0.6;
     bgCtx.lineCap = "round";

@@ -1,3 +1,4 @@
+// 泡泡对象
 var waveObj = function(){
     // 与果实碰撞产生的泡泡
     this.waveList = [];
@@ -13,6 +14,7 @@ var waveObj = function(){
 
 }
 
+// 初始化泡泡对象
 waveObj.prototype.init = function(){
     for(var i = 0; i < this.num; i++){
         this.waveList[i] = {
@@ -33,7 +35,9 @@ waveObj.prototype.init = function(){
     }
 }
 
+// 描绘泡泡
 waveObj.prototype.draw = function(){
+    // 大鱼与果实产生的泡泡
     for(var i in this.waveList){
         mainCtx.save();
         mainCtx.shadowColor = "white";
@@ -54,6 +58,7 @@ waveObj.prototype.draw = function(){
         mainCtx.restore();
     }
 
+    // 大鱼与小鱼产生的泡泡
     for(var i in this.fishWaveList){
         mainCtx.save();
         mainCtx.shadowColor = "rgba(203, 91, 0, 1)";

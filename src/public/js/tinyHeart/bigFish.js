@@ -1,3 +1,4 @@
+// 大鱼对象
 var bigFishObj = function(){
     this.x = 0;
     this.y = 0;
@@ -25,6 +26,7 @@ var bigFishObj = function(){
     }
 }
 
+// 大鱼初始化
 bigFishObj.prototype.init = function(){
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 2;
@@ -50,6 +52,7 @@ bigFishObj.prototype.init = function(){
 
 // 绘制大鱼方法
 bigFishObj.prototype.draw = function(){
+    // 如果游戏暂停，就不改变当前大鱼状态的变量
     if(data.isStop){
         mainCtx.save();
         mainCtx.translate(this.x, this.y);

@@ -12,7 +12,8 @@ window.onload = function(){
     lastTime = Date.now();
     deltaTime = 0;
     gameLoop();
-    document.getElementsByTagName("html")[0].onkeydown = function(e){
+    // 监听空格键用于暂停游戏
+    document.getElementsByTagName("html")[0].onkeyup = function(e){
         // console.log(e);
         if(e.code == "Space"){
             stopGame();

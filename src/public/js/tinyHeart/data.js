@@ -1,3 +1,4 @@
+// 计数对象
 var dataObj = function(){
     this.fruitNum = 0;
     this.double = 1;
@@ -21,7 +22,7 @@ dataObj.prototype.resetScore = function(){
     this.score = 0;
 }
 
-// 绘制字头
+// 绘制字体
 dataObj.prototype.draw = function(){
     var lineHeight = 20;
     mainCtx.save();

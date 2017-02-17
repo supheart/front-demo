@@ -1,3 +1,4 @@
+// 小鱼对象
 var babyFishObj = function(){
     this.x = 0;
     this.y = 0;
@@ -26,6 +27,7 @@ var babyFishObj = function(){
     }
 }
 
+// 小鱼初始化
 babyFishObj.prototype.init = function(){
     this.x = canvasWidth / 2 + Math.random()*50 + 50;
     this.y = canvasHeight / 2 + Math.random()*50 + 50;
@@ -49,6 +51,7 @@ babyFishObj.prototype.init = function(){
 
 // 绘制小鱼方法
 babyFishObj.prototype.draw = function(){
+    // 如果游戏暂停，就不改变当前小鱼状态的变量
     if(data.isStop){
         mainCtx.save();
         mainCtx.translate(this.x, this.y);
@@ -98,7 +101,6 @@ babyFishObj.prototype.draw = function(){
             this.babyBody.imgIndex = this.babyBody.imgCount - 1;
             gameOver();
             data.gameOver = true;
-
         }else{
             this.babyBody.imgIndex = this.babyBody.imgIndex + 1;
         }   
