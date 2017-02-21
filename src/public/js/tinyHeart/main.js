@@ -84,6 +84,7 @@ function gameLoop(){
 
 // 鼠标移动
 function onMouseMove(e){
+    e.preventDefault();
     // 获取canvas中鼠标坐标的方法，这里去第一种
     // 1
     // var mx = e.clientX - mainCanvas.getBoundingClientRect().left;
@@ -104,6 +105,7 @@ function onMouseMove(e){
 
 // 移动端手机移动
 function onTouchMove(e){
+    e.preventDefault();
     if(data.gameOver) return;
     mx = e.touches[0].clientX - mainCanvas.getBoundingClientRect().left;
     my = e.touches[0].clientY - mainCanvas.getBoundingClientRect().top;

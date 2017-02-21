@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>write</title>
+    <style type="text/css">
+        #canvas{
+            display: block; margin: 10px auto; border: 1px solid #aaa;
+        }
+        .controller{
+            width: 99%; max-width: 800px; margin: 10px auto; line-height: 40px; overflow: hidden;
+        }
+        .controller button{
+            float: left; margin: 5px; width: 36px; height: 36px; border-radius: 3px; cursor: pointer; border: 1px solid #aaa;
+        }
+        .controller button:last-child{
+            float: right; margin-right: 0; width: 80px; height: 36px;background-color: #fff; font: bold 16px Arial;
+        }
+        .controller button:hover{
+            border: 3px solid violet;
+        }
+        .controller button:last-child:hover{
+            background-color: #def; border: 1px solid #aaa;
+        }
+        .controller .select{
+            border: 3px solid blueviolet;
+        }
+        .controller #black-color{ background-color: black;}
+        .controller #blue-color{ background-color: blue;}
+        .controller #green-color{ background-color: green;}
+        .controller #red-color{ background-color: red;}
+        .controller #orange-color{ background-color: orange;}
+        .controller #yellow-color{ background-color: yellow;}
+        .clearfix{clear: both;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            console.log("start write log...");
+            init();
+            drawBg();
+            initCtrl();
+        }
+
+        function initCtrl(){
+            document.querySelectorAll(".controller button").forEach(function(item){
+                item.onclick = function(){
+                    var type = this.getAttribute("target");
+                    document.querySelector('.select').classList.remove("select");
+                    this.classList.add("select");
+                    strokeColor = type;
+                }
+            });
+
+            document.querySelector("#clear-btn").onclick = function(){
+                redraw();
+            }
+        }
+    </script>
+    <script src="/js/write.js"></script>
+</head>
+<body>
+    <canvas id="canvas">no canvas</canvas>
+    <div class="controller">
+        <button id="black-color" target="black" class="select"></button>
+        <button id="blue-color" target="blue"></button>
+        <button id="green-color" target="green"></button>
+        <button id="red-color" target="red"></button>
+        <button id="orange-color" target="orange"></button>
+        <button id="yellow-color" target="yellow"></button>
+        <button id="clear-btn">清 除</button>
+    </div>
+</body>
+</html>
