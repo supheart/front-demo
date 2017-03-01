@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .canvas-wrapper{
+            width: 800px; height: 500px; margin: 10px auto; border: 1px solid #058;
+        }
+    </style>
+    <script type="text/javascript" src="/js/flash.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            var flash = new flashObj(canvas);
+
+            runLoop();
+
+            function runLoop(){
+                requestAnimationFrame(runLoop);
+                flash.draw();
+            }
+        }
+
+        
+    </script>
+</head>
+<body>
+    <div class="canvas-wrapper">
+        <canvas id="canvas" width="800" height="500">no canvas</canvas>
+    </div>
+</body>
+</html>
