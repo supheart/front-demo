@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        *{margin: 0; padding: 0;}
+        .canvas-wrapper{display: block; position: relative; margin: 0px auto; overflow: hidden;}
+        #canvas{ 
+            display: block; position: absolute; margin: 0 auto; top: 0; left: 0; z-index: 100; 
+            /*background-color: rgba(155, 155, 155, 0.6);*/
+        }
+        .simg{ 
+            display: block; position: absolute; margin: 0 auto; top: 0; left: 0; z-index: 0;
+            filter: blur(25px); 
+            -webkit-filter: blur(25px);
+            -moz-filter: blur(25px);
+            -ms-filter: blur(25px);
+        }
+        .btn-wrapper{
+            margin: 10px auto; text-align: center; height: 32px;
+        }
+        .canvas-wrapper a{
+            position: absolute; display: inline-block;bottom: 30px; width: 80px; height: 32px; text-align: center; line-height: 32px; border-radius: 5px; color: aliceblue; font-size: 18px; text-decoration: none; z-index: 200;
+        }
+        .canvas-wrapper .reset{ background: #058; left: 50px; }
+        .canvas-wrapper .reset:hover{ background: #047; }
+        .canvas-wrapper .show{ background: #085;  right: 50px; }
+        .canvas-wrapper .show:hover{ background: #074; }
+
+        /*.cimg{ display: block; width: 800px; margin: 10px auto; border: 1px solid #058; filter: blur(0px)}
+        input[type=range]{ display: block; width: 600px; margin: 10px auto;}*/
+    </style>
+    <script type="text/javascript">
+        var reset, show;
+        window.onload = function(){
+            console.log('start log...');
+
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            canvas.width = Math.min(960, window.innerWidth);
+            canvas.height = Math.min(600, window.innerHeight);
+            var leftMargin, topMargin;
+            var cr = 50;
+            var clippingRegion = {x: cr + Math.random() * (canvas.height - 2*cr), y: cr + Math.random() * (canvas.height - 2*cr), r: cr};
+
+            var img = new Image();
+            img.src = '/images/ad1.jpg';
+            img.onload = function(e){
+                var canvasWrapper = document.querySelector('.canvas-wrapper');
+                var simg = document.querySelector('.simg');
+                var btnWrapper = document.querySelector('.btn-wrapper');
+                canvasWrapper.style.width = canvas.width + 'px';
+                canvasWrapper.style.height = canvas.height + 'px';
+                if(window.innerHeight > img.height){
+                    canvasWrapper.style.marginTop = (window.innerHeight - img.height) / 2 + 'px';
+                }
+                simg.style.width = img.width + 'px';
+                simg.style.height = img.height + 'px';
+                // btnWrapper.style.width = canvas.width + 'px';
+                // btnWrapper.style.height = canvas.height + 'px';
+                leftMargin = (img.width - canvas.width) / 2;
+                topMargin = (img.height - canvas.height) / 2;
+                simg.style.top = String(-topMargin) + 'px';
+                simg.style.left = String(-leftMargin) + 'px';
+                draw();
+            }
+
+            function draw(isShow){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                context.save();
+                if(!isShow){
+                    context.beginPath();
+                    context.arc(clippingRegion.x, clippingRegion.y, clippingRegion.r, 0, Math.PI * 2);
+                    context.clip();
+                }
+                context.drawImage(img, leftMargin, topMargin, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+                context.restore();
+            }
+
+            var animate;
+            reset = function(){
+                console.log('reset clip');
+                clearInterval(animate);
+                clippingRegion = {x: cr + Math.random() * (canvas.width - 2*cr), y: cr + Math.random() * (canvas.height - 2*cr), r: cr};
+                console.log(clippingRegion.x, clippingRegion.y);
+                draw();
+            }
+
+            show = function(){
+                console.log('show img');
+                animate = setInterval(function(){
+                    clippingRegion.r += 15;
+                    if(clippingRegion.r > 2*(Math.max(canvas.width, canvas.height))){
+                        draw(true);
+                        clearInterval(animate);
+                    }else{
+                        draw();
+                    }
+                    console.log('run interval');
+                }, 25);
+            }
+
+            canvas.addEventListener("touchmove", function(e){
+                e.preventDefault();
+            });
+
+            
+
+            // var rangeInput = document.getElementById('range');
+            // rangeInput.onmousemove = function(){
+            //     document.querySelector('#cimg').style.filter = 'blur(' + rangeInput.value  + 'px)';
+            // }    
+            // rangeInput.addEventListener("touchmove", function(){
+            //     document.querySelector('#cimg').style.filter = 'blur(' + rangeInput.value  + 'px)';
+            // });
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="canvas-wrapper">
+        <img class="simg" src="/images/ad1.jpg" alt="img">
+        <canvas id="canvas">no</canvas>
+        <a class="reset" href="javascript: reset()">reset</a>
+        <a class="show" href="javascript: show()">show</a>
+    </div>
+    <!--<div class="btn-wrapper">
+    </div>-->
+    <!--<img id="cimg" class="cimg" src="/images/ad1.jpg" alt="img">
+    <input type="range" step="0.1" min="0" max="10" id="range" value="0">-->
+</body>
+</html>

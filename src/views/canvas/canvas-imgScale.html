@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        body{background-color: #000; }
+        #canvas{ display: block; margin: 10px auto; border: 1px solid #aaa; }
+        .range{ display: block; margin: 20px auto; width: 800px; }
+        #wmcanvas{ display: none; margin: 10px auto; border: 1px solid #aaa; }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var canvas = document.getElementById('canvas');
+            canvas.width = 1152;
+            canvas.height = 768;
+            var ctx = canvas.getContext('2d');
+            var slider = document.getElementById('scale-range');
+            var scale = slider.value;
+            var offscale;
+            var img = new Image();
+            img.src = '/images/pic-lg.jpg';
+            img.onload = function(){
+                drawImageInScale(scale);
+
+                slider.onmousemove = function(){
+                    scale = slider.value;
+                    drawImageInScale(scale);
+                }
+
+                offcanvas.width = img.width;
+                offcanvas.height = img.height;
+                offctx.drawImage(img, 0, 0, img.width, img.height);
+                offscale = offcanvas.width / canvas.width;
+            }
+
+            function drawImageInScale(scale){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                var imageWidth = 1152 * scale;
+                var imageHeight = 768 * scale;
+
+                // var sx = imageWidth / 2 - canvas.width / 2;
+                // var sy = imageHeight / 2 - canvas.height / 2;
+                // ctx.drawImage(img, sx, sy, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
+                var dx = (canvas.width - imageWidth) / 2;
+                var dy = (canvas.height - imageHeight) / 2;
+                ctx.drawImage(img, dx, dy, imageWidth, imageHeight);
+                // if(scale < 1){
+                //     ctx.drawImage(wmcanvas, imageWidth - wmcanvas.width + dx, imageHeight - wmcanvas.height + dy);
+                // }else{
+                //     ctx.drawImage(wmcanvas, canvas.width - wmcanvas.width, canvas.height - wmcanvas.height);
+                // }
+            }
+
+            // 水印canvas
+            var wmcanvas = document.getElementById('wmcanvas');
+            var wmctx = wmcanvas.getContext('2d');
+            wmcanvas.width = 600;
+            wmcanvas.height = 100;
+
+            wmctx.font = 'bold 50px Arial';
+            wmctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            wmctx.textBaseline = 'middle';
+            wmctx.fillText('== watermark ==', 100, 50);
+
+            var isMouseDown = false;
+            canvas.onmousedown = function(e){
+                e.preventDefault();
+                var p = windowToCanvas(e.clientX, e.clientY);
+                isMouseDown = true;
+                drawCanvasWithMagnifier(true, p);
+            }
+            canvas.onmouseup = function(e){
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMagnifier(false);
+            }
+            canvas.onmousemove = function(e){
+                e.preventDefault();
+                if(isMouseDown){
+                    var p = windowToCanvas(e.clientX, e.clientY);
+                    // console.log(p.x, p.y);
+                    drawCanvasWithMagnifier(true, p);
+                }
+            }
+            canvas.onmouseout = function(e){
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMagnifier(false);
+            }
+
+            function drawCanvasWithMagnifier(isShow, point){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                if(isShow){
+                    var imgx = point.x * offscale;
+                    var imgy = point.y * offscale;
+
+                    var mr = 200;
+                    var sx = imgx - mr;
+                    var sy = imgy - mr;
+                    var dx = point.x - mr;
+                    var dy = point.y - mr;
+                    // console.log("sx, sy, dx, dy: ", sx, sy, dx, dy);
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, mr, 0, Math.PI*2);
+                    ctx.strokeStyle = "#058";
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    ctx.clip();
+                    ctx.drawImage(offcanvas, sx, sy, 2*mr, 2*mr, dx, dy, 2*mr, 2*mr);
+                    ctx.restore();
+                }
+            }
+
+            // 将屏幕坐标转换为canvas坐标
+            function windowToCanvas(x, y){
+                var bbox = canvas.getBoundingClientRect();
+                return {x: Math.round(x - bbox.left), y: Math.round(y - bbox.top)}
+            }
+
+            // 放大镜canvas
+            var offcanvas = document.getElementById('offcanvas');
+            var offctx = offcanvas.getContext('2d');
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas">no canvas</canvas>
+    <input id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0" type="range" class="range">
+    <canvas id="wmcanvas">no canvas</canvas>
+    <canvas id="offcanvas">no canvas</canvas>
+</body>
+</html>
