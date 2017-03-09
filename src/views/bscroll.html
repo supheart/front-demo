@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bscroll</title>
+    <style type="text/css">
+        .city {
+            display: block;
+        }
+        .city .city-wrapper {
+            position: fixed;
+            /*position: absolute;*/
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script src="/plugin/bscroll/bscroll.min.js"></script>
+    <script src="/js/data/city.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            console.log('start log...');
+            var cityList = [];
+            for(var i in cityData){
+                if(cityData[i].name.length > 1) continue;
+                for(var j in cityData[i].cities){
+                    cityList.push(cityData[i].cities[j].name);
+                }
+            }
+            console.log(cityList);
+
+            var cityHtml = '<ul>';
+            for(var i in cityList){
+                cityHtml += '<li>' + cityList[i] + '</li>'
+            }
+            cityHtml += '</ul>';
+            var cityWrapper = document.querySelector(".city-wrapper");
+            var cities = document.querySelector(".cities");
+            cities.innerHTML = cityHtml;
+
+            scroll = new window.BScroll(cityWrapper, {
+                probeType: 3
+            });
+
+            scroll.on('scroll', function (pos) {
+                console.log(Math.round(pos.y));
+            });
+
+            scroll.scrollTo(0, 0);
+        }
+    </script>
+</head>
+<body>
+    <div class="city">
+        <div class="city-wrapper city-wrapper-hook">
+            <div class="scroller-hook">
+                <div class="cities cities-hook"></div>
+            </div>
+            <div class="shortcut shortcut-hook"></div>
+        </div>
+    </div>
+</body>
+</html>

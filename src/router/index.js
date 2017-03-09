@@ -7,6 +7,10 @@ module.exports = function(router){
 	
   	var data = ctrlIndex.getIndex();
 
+	router.get('/bscroll', function(req, res){
+		res.render("bscroll");
+	});
+
 	// canvas测试页面
 	router.get('/canvas/:type', function(req, res){
 		res.render("canvas/canvas-" + req.params.type, data);

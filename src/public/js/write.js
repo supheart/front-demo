@@ -146,6 +146,7 @@ function addEvent(){
         }
     }
     canvas.addEventListener("touchstart", function(e){
+        e.preventDefault();
         beginStroke({x: e.touches[0].clientX, y: e.touches[0].clientY});
     });
     canvas.addEventListener("touchmove", function(e){
