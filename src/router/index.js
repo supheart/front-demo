@@ -7,6 +7,10 @@ module.exports = function(router){
 	
   	var data = ctrlIndex.getIndex();
 
+	router.get('/vue', function(req, res){
+		res.render("vue");
+	});
+
 	router.get('/bscroll', function(req, res){
 		res.render("bscroll");
 	});

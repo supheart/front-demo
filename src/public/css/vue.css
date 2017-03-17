@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+button {
+  padding: 4px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+  border: 2px solid rgba(7, 17, 27, 0.1);
+  background: #e9eaec; }
+  button:hover {
+    background: #cccccc; }
+  button:active {
+    background: #bbbbbb; }
+  button.opposite {
+    color: #eee;
+    background: #888; }
+    button.opposite:hover {
+      background: #666; }
+    button.opposite:active {
+      background: #555; }
+
+.list {
+  width: 100%; }
+  .list .add {
+    padding: 0 12px;
+    margin-bottom: 10px; }
+    .list .add .add-line {
+      display: flex;
+      padding: 5px 15px 5px 5px;
+      border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+      align-items: center; }
+      .list .add .add-line .desc {
+        display: inline-block;
+        flex: 0 0 80px;
+        width: 80px;
+        word-wrap: break-word;
+        padding: 0 10px;
+        text-align: right; }
+      .list .add .add-line .text {
+        display: inline-block;
+        padding: 0 5px;
+        flex: 1;
+        margin: 0 5px;
+        height: 26px; }
+    .list .add .btn {
+      text-align: center;
+      margin-top: 10px; }
+      .list .add .btn button {
+        width: 80px;
+        font-size: 18px; }
+        .list .add .btn button.opposite {
+          margin-right: 15px; }
+  .list .table-list {
+    width: 100%;
+    padding: 0 15px; }
+    .list .table-list .head {
+      background: #e9eaec; }
+      .list .table-list .head th {
+        padding: 12px 8px;
+        height: 100%;
+        text-align: center;
+        border: 1px solid rgba(7, 17, 27, 0.2);
+        border-left: none; }
+        .list .table-list .head th:first-child {
+          border-left: 1px solid rgba(7, 17, 27, 0.2); }
+    .list .table-list .line:nth-of-type(even) {
+      background: #f6f6f6; }
+    .list .table-list .line:nth-of-type(odd) {
+      background: #fefefe; }
+    .list .table-list .line td {
+      padding: 8px 8px;
+      height: 100%;
+      text-align: center;
+      border: 1px solid rgba(7, 17, 27, 0.1);
+      border-top: none;
+      border-left: none; }
+      .list .table-list .line td:first-child {
+        border-left: 1px solid rgba(7, 17, 27, 0.2); }

@@ -4,8 +4,8 @@
   "description": "a project by milo-pro",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dist": "node dist/app.js"
+    "start": "node www/dev.js",
+    "dist": "node www/dist.js"
   },
   "author": "milo",
   "license": "ISC",

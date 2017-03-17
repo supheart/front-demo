@@ -1,0 +1,102 @@
+*{
+    margin: 0; padding: 0;
+}
+button{
+    padding: 4px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid rgba(7, 17, 27, 0.1);
+    background: #e9eaec;
+    &:hover{
+        background: #cccccc;
+    }
+    &:active{
+        background: #bbbbbb;
+    }
+    &.opposite{
+        color: #eee;
+        background: #888;
+
+        &:hover{
+            background: #666;
+        }
+        &:active{
+            background: #555;
+        }
+    }
+}
+.list{
+    width: 100%;
+    .add{
+        padding: 0 12px;
+        margin-bottom: 10px;
+        .add-line{
+            display: flex;
+            padding: 5px 15px 5px 5px;
+            border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+            align-items: center;
+            .desc{
+                display: inline-block;
+                flex: 0 0 80px;
+                width: 80px;
+                word-wrap: break-word;
+                padding: 0 10px;
+                text-align: right;
+            }
+            .text{
+                display: inline-block;padding: 0 5px;
+                flex: 1;
+                margin: 0 5px;
+                height: 26px;
+            }
+        }
+        .btn{
+            text-align: center;
+            margin-top: 10px;
+            button{
+                width: 80px;
+                font-size: 18px;
+                &.opposite{
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+    .table-list{
+        width: 100%;
+        padding: 0 15px;
+        .head{
+            background: #e9eaec;
+            th{
+                padding: 12px 8px;
+                height: 100%;
+                text-align: center;
+                border: 1px solid rgba(7, 17, 27, 0.2);
+                border-left: none;
+                &:first-child{
+                    border-left: 1px solid rgba(7, 17, 27, 0.2);
+                }
+            }
+        }
+        .line{
+            &:nth-of-type(even) {
+                background: #f6f6f6;
+            }
+            &:nth-of-type(odd) {
+                background: #fefefe;
+            }
+            td{
+                padding: 8px 8px;
+                height: 100%;
+                text-align: center;
+                border: 1px solid rgba(7, 17, 27, 0.1);
+                border-top: none;
+                border-left: none;
+                &:first-child{
+                    border-left: 1px solid rgba(7, 17, 27, 0.2);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+    <link rel="stylesheet" href="/css/vue.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            // var app = new Vue({
+            //     el: '#app',
+            //     data: {
+            //         message: 'Hello Vue!'
+            //     },
+            //     methods: {
+            //         showMsg(event) {
+            //             console.log(event._constructed);
+            //             console.log('button click!');
+            //         }
+            //     }
+            // });
+
+            var list = new Vue({
+                el: '#list',
+                data: {
+                    // list: {
+                    //     type: Array,
+                    //     default: [
+                    //         {name: 'milo', email: 'milo@supheart.xyz' , desc: 'milo people test'},
+                    //         {name: 'cc', email: 'cc@supheart.xyz' , desc: 'cc people test'},
+                    //     ]
+                    // }
+                    list: [
+                        {name: 'milo', email: 'milo@supheart.xyz' , desc: 'milo people test'},
+                        {name: 'cc', email: 'cc@supheart.xyz' , desc: 'cc people test'},
+                    ]
+                },
+                methods: {
+                    test() {
+                        console.log('test');
+                        console.log(this);
+                        console.log(this.list);
+                        console.log(Object.keys(this.list[0]));
+                    },
+                    reset() {
+
+                    },
+                    add() {
+
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <!--<div id="app">
+        {{ message }}
+        <div class="btn" @click="showMsg($event)">show msg</div>
+    </div>-->
+    <div class="list" id="list">
+        <div class="add">
+            <div class="add-line" v-for="text in Object.keys(list[0])">
+                <label :for="text" class="desc">{{text}}:</label>
+                <input class="text" type="text" :id="text">
+            </div>
+            <div class="btn">
+                <button class="opposite" @click="reset">reset</button>
+                <button @click="add">add</button>
+            </div>
+        </div>
+        <div class="list-content">
+            <table class="table-list" v-show="list.length > 0" border="0" cellspacing="0" cellpadding="0">
+                <thead class="head">
+                    <th v-for="text in Object.keys(list[0])">{{text}}</th>
+                    <th>操作</th>
+                </thead>
+                <tr class="line" v-for="item in list">
+                    <td>{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.desc}}</td>
+                    <td>
+                        <button>edit</button>
+                        <button class="opposite">delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

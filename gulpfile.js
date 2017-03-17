@@ -51,7 +51,7 @@ gulp.task('minhtml', function(){
 
 //移动静态文件
 gulp.task('movefile', function(){
-    return gulp.src('src/public/**/*')
+    return gulp.src(['src/public/**/*', '!src/public/sass/**/*'])
         .pipe(gulp.dest('dist/public'));
 });
 
@@ -63,31 +63,33 @@ gulp.task('moveconfigs', function(){
 
 //压缩前端js代码
 gulp.task('minjs', function(){
-    return gulp.src(['src/public/**/*.js'])
+    return gulp.src(['src/public/**/*.js', '!src/public/plugin/**/*.js'])
         .pipe(uglify())
         .pipe(gulp.dest('dist/public'));
 });
 
 //压缩css代码
 gulp.task('mincss', function () {
-    gulp.src('src/**/*.css')
+    return gulp.src('src/public/css/**/*.css')
         .pipe(cssmin({
             advanced: false,//类型：Boolean 默认：true [是否开启高级优化（合并选择器等）]
-            compatibility: 'ie7',//保留ie7及以下兼容写法 类型：String 默认：''or'*' [启用兼容模式； 'ie7'：IE7兼容模式，'ie8'：IE8兼容模式，'*'：IE9+兼容模式]
+            compatibility: 'ie8',//保留ie7及以下兼容写法 类型：String 默认：''or'*' [启用兼容模式； 'ie7'：IE7兼容模式，'ie8'：IE8兼容模式，'*'：IE9+兼容模式]
             keepBreaks: true//类型：Boolean 默认：false [是否保留换行]
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/public/css'));
 });
 
 gulp.task('default', gulpSequence('movefile', ['moveconfigs', 'minnode', 'minhtml', 'mincss', 'minjs']));
 
 // 将文件移动到共享文件夹
-var dirName = 'f:/vymiddle';
+var dirName = 'f:/middle';
 gulp.task('pack', function () {
   gulp.src('./dist/**').pipe(gulp.dest(dirName + '/dist'));
-  gulp.src('./node_modules/**').pipe(gulp.dest(dirName + '/node_modules'));
+  // gulp.src('./node_modules/**').pipe(gulp.dest(dirName + '/node_modules'));
   gulp.src('./oauth/**').pipe(gulp.dest(dirName + '/oauth'));
-  gulp.src('./www/**').pipe(gulp.dest(dirName + '/www'));
+  gulp.src('./www/dist-cluster.js').pipe(gulp.dest(dirName + '/www'));
+  gulp.src('./www/dist.js').pipe(gulp.dest(dirName + '/www'));
   gulp.src('./package.json').pipe(gulp.dest(dirName));
   gulp.src('./launch.sh').pipe(gulp.dest(dirName));
+  return;
 });
