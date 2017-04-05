@@ -1,8 +1,10 @@
 var ctrlIndex = require('../core/controller/index');
+var routerAdmin = require('./admin');
 var routerTest = require('./test');
 var rp = require('../model/views/response');
 
 module.exports = function(router){
+	routerAdmin(router);
 	routerTest(router);
 	
   	var data = ctrlIndex.getIndex();

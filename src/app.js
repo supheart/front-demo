@@ -7,9 +7,9 @@ var session = require('express-session');
 var Redis = require('ioredis');
 var redisStore = require('connect-redis')(session);
 var log4js = require('log4js');
-var compression = require('compression')
+var compression = require('compression');
 var utool = require('./lib/utool');
-var multer  = require('multer')
+var multer  = require('multer');
 
 var projectId = 'milo-pro';	
 var app = express();

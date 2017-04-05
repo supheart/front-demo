@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node www/dev.js",
-    "dist": "node www/dist.js"
+    "dist": "node www/dist.js",
+    "test": "node www/test.js"
   },
   "author": "milo",
   "license": "ISC",
