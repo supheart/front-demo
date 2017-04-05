@@ -34,6 +34,18 @@ exports.formatDate = function(date, formatType){
     return formatType;
 }
 
+exports.max = function(arr) {
+    var key = '';
+    let max = 0;
+    for(var i in arr) {
+        if(arr[i] > max) {
+            max = arr[i];
+            key = i;
+        }
+    }
+    return {key: key, val: max};
+}
+
 function padLeftZero(str) {
     return ('00' + str).substr(str.length);
 };
